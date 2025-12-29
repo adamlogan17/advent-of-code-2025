@@ -19,13 +19,26 @@ func ReadFile(filename string) ([]string) {
 }
 
 func pattern_check(input string) (bool) {
-	return true
+	inputLen := len(input)
+	if inputLen % 2 != 0 {
+		return false
+	}
+
+	halfInputLen := inputLen/2
+	firstHalf := string(input[0:halfInputLen])
+	secondHalf := string(input[halfInputLen:])
+
+	if firstHalf == secondHalf {
+		return true
+	}
+	return false
 }
 
 func main() {
-	// input := ReadFile("input.txt")
-	input := []string{"11-22", "95-115", "998-1012" , "1188511880-1188511890", "222220-222224", "1698522-1698528", "446443-446449", "38593856-38593862", "565653-565659", "824824821-824824827", "2121212118-2121212124"}
-	fmt.Println(input)
+	input := ReadFile("input.txt")
+	// input := []string{"11-22", "95-115", "998-1012" , "1188511880-1188511890", "222220-222224", "1698522-1698528", "446443-446449", "38593856-38593862", "565653-565659", "824824821-824824827", "2121212118-2121212124"}
+	// fmt.Println(input)
+	total := 0
 
 	for _, id := range input {
 		id_range := strings.Split(id, "-")
@@ -36,13 +49,13 @@ func main() {
 		}
 
 		for i := start; i <= end; i++ {
-			fmt.Println(i)
 			iAsStr := strconv.Itoa(i)
 			isPattern := pattern_check(iAsStr)
 			if isPattern {
-				fmt.Println("Pattern!")
+				total += i
 			}
 		}
-		break
 	}
+
+	fmt.Println(total)
 }
