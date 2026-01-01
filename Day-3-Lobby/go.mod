@@ -1,0 +1,3 @@
+module example/day-3
+
+go 1.25.5
